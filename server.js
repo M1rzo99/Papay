@@ -1,23 +1,32 @@
+// dotenv bu bizni malumotarimzini boshqalarga ko'rinmasligini ta'minlab beradi,Ya'ni himoyalab beradi.
+
+const dotenv = require("dotenv");
+dotenv.config();
+
 
 const http = require('http');
-const mongodb = require("mongodb");
+const mongoose = require("mongoose");
 // for MongoDB
-let db;
-const connectionString = "mongodb+srv://Mirzo:kcu87Q49fdODeRXt@cluster0.pzgqtca.mongodb.net/Reja?retryWrites=true&w=majority"
-mongodb.connect(connectionString, {
+const connectionString = process.env.MONGO_URL;
+mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-}, (err, client) => {
+}, (err, goose) => {
     if (err) console.log("Error connection MongoDB");
+
     else {
         console.log("DataBase MongoDB Connection succseed");
-        module.exports = client;
+        // console.log(goose);
+
         const app = require("./app");
 
         const server = http.createServer(app);
-        let PORT = 3003;
+        let PORT = process.env.PORT || 3008;
         server.listen(PORT, function () {
             console.log(`the server is running succesfully on port ${PORT},http://localhost:${PORT}`);
         });
     }
 });
+
+
+
