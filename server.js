@@ -1,32 +1,31 @@
-// dotenv bu bizni malumotarimzini boshqalarga ko'rinmasligini ta'minlab beradi,Ya'ni himoyalab beradi.
-
-const dotenv = require("dotenv");
-dotenv.config();
-
-
-const http = require('http');
 const mongoose = require("mongoose");
-// for MongoDB
-const connectionString = process.env.MONGO_URL;
-mongoose.connect(connectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}, (err, goose) => {
-    if (err) console.log("Error connection MongoDB");
+const http = require("http");
+const env = require("dotenv");
+const color = require("colors/safe");
 
-    else {
-        console.log("DataBase MongoDB Connection succseed");
-        // console.log(goose);
+env.config();
 
-        const app = require("./app");
+const databaseConnection = process.env.MONGODB_URL;
 
-        const server = http.createServer(app);
-        let PORT = process.env.PORT || 3008;
-        server.listen(PORT, function () {
-            console.log(`the server is running succesfully on port ${PORT},http://localhost:${PORT}`);
-        });
+mongoose.set({ strictQuery: true });
+mongoose.connect(
+  databaseConnection,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err, data) => {
+    if (data) {
+      console.log(color.blue("Successfully connection to Mongodb Database"));
+      const app = require("./app");
+      const server = http.createServer(app);
+      const port = process.env.PORT ?? 3003;
+      server.listen(
+        port,
+        console.info(
+          color.black(`Server is listening on port ${port}`),
+          color.black(`http://localhost:${port}`)
+        )
+      );
+    } else {
+      console.log(color.red("Something went wrong", err.message));
     }
-});
-
-
-
+  }
+);

@@ -1,22 +1,21 @@
-const express = require("express");
-const router = express.Router();
-const memberControllers = require("./controllers/memberControllers");
+const router = require("express").Router();
+const memberController = require("./controllers/memberController");
 
-// memberga dahldor routers
-console.log("Routera");
-router.get("/", memberControllers.home);
-router.post("/signup", memberControllers.signup);
-router.post("/login", memberControllers.login);
-router.get("/logout", memberControllers.logout);
+/*************************
+ *      Restful API      *
+ *************************/
+//Member Controller
+router.post("/signup", memberController.signup);
+router.post("/login", memberController.login);
+router.get("/logout", memberController.logout);
 
-// others routers
-router.get("/menu", function (req, res) {
-    res.send("You are in Page Menu")
+//Other Controllers
+router.get("/menu", (req, res) => {
+  res.send("This is Menu Page");
 });
 
-// others routers
-router.get("/community", function (req, res) {
-    res.send("You are in community Page")
+router.get("/community", (req, res) => {
+  res.send("This is Community Page");
 });
 
 module.exports = router;

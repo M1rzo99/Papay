@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const router = require("./router");
-// const router_BSSR = require('./router_BSSR');
+const router_BSSR = require('./router_BSSR');
 
 //MongoDB
 
@@ -19,6 +19,7 @@ app.set("views", "views");
 app.set("view engine", "ejs");
 
 //Routing code
+app.use("/resto", router_BSSR);
 app.use("/", router);
 
 
