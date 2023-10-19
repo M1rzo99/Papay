@@ -16,8 +16,8 @@ class Member {
       let result;
       try {
         result = await new_member.save();
-      } catch (err) {
-        console.log(err.message);
+      } catch (mongo_err) {
+        console.log(mongo_err);
         throw new Error(Definer.auth_err1);
       }
       const lengthPassword = result.mb_password.length;
@@ -36,10 +36,9 @@ class Member {
   async loginData(input) {
     try {
       console.log("POST: const/login");
-      const member = await this.memberModel.findOne(
-        { mb_nick: input.mb_nick },
-        { mb_nick: 1, mb_password: 1 }
-      );
+      const member = await this.memberModel
+        .findOne({ mb_nick: input.mb_nick }, { mb_nick: 1, mb_password: 1 })
+        .exec();
       assert.ok(member, Definer.auth_err3);
 
       const isMatch = await bcrypt.compare(

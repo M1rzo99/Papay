@@ -16,9 +16,9 @@ restaurantController.signupProcess = async (req, res) => {
   try {
     console.log('POST: const/signup')
     const new_member = new Member();
-    const result =await new_member.signupData(req.body);
+    const result = await new_member.signupData(req.body);
 
-    res.json({state:"Succeed", data:result})
+    res.json({ state: "Succeed", data: result })
 
   } catch (err) {
     console.log("ERROR: cont/signup", err);
@@ -39,9 +39,9 @@ restaurantController.loginProcess = async (req, res) => {
   try {
     console.log('POST: const/signup')
     const new_member = new Member();
-    const result =await new_member.loginData(req.body);
+    const result = await new_member.loginData(req.body);
 
-    res.json({state:"Succeed", data:result})
+    res.json({ state: "Succeed", data: result })
 
   } catch (err) {
     console.log("ERROR: cont/signup", err);

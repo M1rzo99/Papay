@@ -20,8 +20,8 @@ mongoose.connect(
       server.listen(
         port,
         console.info(
-          color.yellow(`Server is listening on port ${port}`),
-          color.rainbow(`http://localhost:${port}`)
+          color.black(`Server is listening on port ${port}`),
+          color.black(`http://localhost:${port}`)
         )
       );
     } else {
