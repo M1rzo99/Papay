@@ -1,0 +1,11 @@
+<h1>Restaurant menu page</h1>
+
+<%if(!member){ %>
+    <h2>Siz Authenticated bo'lmagansiz</h2>
+    <% }else{%>
+        <h1>Siz Authenticated bo'lgansiz, va Sizning Nick Name <%= member.mb_nick%>
+                <p>Sizning tel Nomer <%= member.mb_phone %>
+                </p>
+        </h1>
+
+        <%}%>
