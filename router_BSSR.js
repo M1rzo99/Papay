@@ -1,4 +1,5 @@
 const router_bssr = require("express").Router();
+const productController = require("./controllers/productController");
 const restaurantController = require("./controllers/restaurantController");
 
 /*************************
@@ -8,16 +9,23 @@ const restaurantController = require("./controllers/restaurantController");
 
 //Member Controller
 router_bssr
-    .get("/signup", restaurantController.getSignupMyRestaurant)
-    .post("/signup", restaurantController.signupProcess);
+  .get("/signup", restaurantController.getSignupMyRestaurant)
+  .post("/signup", restaurantController.signupProcess);
 
 router_bssr
-    .get("/login", restaurantController.getLoginMyRestaurant)
-    .post("/login", restaurantController.loginProcess);
+  .get("/login", restaurantController.getLoginMyRestaurant)
+  .post("/login", restaurantController.loginProcess);
 
 router_bssr.get("/logout", restaurantController.logout);
 router_bssr.get("/check-me", restaurantController.checkSessions);
 
+// bu uchta Api productlarga tegishlidir.
 router_bssr.get("/products/menu", restaurantController.getMyRestaurantData);
+router_bssr.post(
+  "/products/create",
+  restaurantController.validateAuthRestaurant,
+  productController.addNewProduct
+);
+router_bssr.post("/products/edit/:id", productController.updateChosenProduct);
 
 module.exports = router_bssr;
