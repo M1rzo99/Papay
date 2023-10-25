@@ -1,6 +1,6 @@
 // const { read } = require("mongodb/lib/gridfs/grid_store");
 const Member = require("../models/Member");
-// const session = require("express-session");
+const session = require("express-session");
 const restaurantController = module.exports;
 
 restaurantController.getMyRestaurantData = async (req, res) => {

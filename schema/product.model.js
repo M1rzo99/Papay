@@ -85,5 +85,13 @@ const productSchema = new mongoose.Schema(
       required: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true } // createdAt, updateAt larni MongoDb ni o'zi avto qo'yib beradi, oxirgi ozgartirga vaqtni
 );
+
+productSchema.index(
+  { restaurant_mb_id: 1, product_name: 1, product_size: 1, product_volume: 1 }, // restNomi - cola -null-2 o'qilishi kodimizni
+  { unique: true }
+);
+// uniqness un, bir xil nomdagi,bir xil sizedagi malumotlarni yozmasin
+
+module.exports = mongoose.model("Product", productSchema);
