@@ -87,6 +87,7 @@ restaurantController.validateAuthRestaurant = (req, res, next) => {
 };
 
 restaurantController.checkSessions = (req, res) => {
+  console.log(req.session?.member);
   if (req.session?.member) {
     res.json({ state: "succeed", data: req.session.member });
   } else {

@@ -1,5 +1,5 @@
 const Definer = require("../lib/mistakes");
-const MemberSchema = require("../schema/member.control");
+const MemberSchema = require("../schema/member.model");
 const assert = require("assert");
 const bcrypt = require("bcryptjs");
 
