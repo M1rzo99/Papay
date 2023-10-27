@@ -9,10 +9,12 @@ const uploader_product = require("./utils/upload-multer")("products");
  *************************/
 // bu router_bssr restoron va adminlar uchundir.
 
+router_bssr.get("/", restaurantController.home);
+
 //Member Controller
 router_bssr
-  .get("/signup", restaurantController.getSignupMyRestaurant)
-  .post("/signup", restaurantController.signupProcess);
+  .get("/sign-up", restaurantController.getSignupMyRestaurant)
+  .post("/sign-up", restaurantController.signupProcess);
 
 router_bssr
   .get("/login", restaurantController.getLoginMyRestaurant)
