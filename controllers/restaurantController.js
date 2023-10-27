@@ -1,16 +1,18 @@
 // const { read } = require("mongodb/lib/gridfs/grid_store");
 const Member = require("../models/Member");
-const session = require("express-session");
+const Product = require("../models/Product");
+
 const restaurantController = module.exports;
 
-restaurantController.getMyRestaurantData = async (req, res) => {
+restaurantController.getMyRestauranProducts = async (req, res) => {
   try {
-    console.log("GET: cont/getMyRestaurantData");
+    console.log("GET: cont/getMyRestauranProducts");
     // TODO:Get my restaurent products
-
-    res.render("restaurant-menu");
+    const product = new Product();
+    const data = await product.getaAllProductsDataResto(res.locals.member);
+    res.render("restaurant-menu", { restaurant_data: data });
   } catch (err) {
-    console.log("ERROR: cont/getMyRestaurantData", err);
+    console.log("ERROR: cont/getMyRestauranProducts", err);
     res.json({ state: "fail", message: err.message });
   }
 };
