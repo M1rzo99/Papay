@@ -39,7 +39,7 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
 
 restaurantController.signupProcess = async (req, res) => {
   try {
-    console.log("POST: const/signup");
+    console.log("POST: const/signupProcess");
     const data = req.body,
       member = new Member(),
       new_member = await member.signupData(data);
@@ -48,7 +48,7 @@ restaurantController.signupProcess = async (req, res) => {
     req.session.member = new_member;
     res.redirect("/resto/products/menu");
   } catch (err) {
-    console.log(`ERROR: cont/signup, ${err.message}`);
+    console.log(`ERROR: cont/signupProcess, ${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
@@ -65,17 +65,19 @@ restaurantController.getLoginMyRestaurant = async (req, res) => {
 
 restaurantController.loginProcess = async (req, res) => {
   try {
-    console.log("POST: const/login");
+    console.log("POST: const/loginProcess");
     const data = req.body,
       member = new Member(),
       result = await member.loginData(data);
 
     req.session.member = result;
     req.session.save(function () {
-      res.redirect("/resto/products/menu");
+      result.mb_type === "ADMIN"
+        ? res.redirect("/resto/all-restaurant")
+        : res.redirect("/resto/products/menu");
     });
   } catch (err) {
-    console.log(`ERROR: cont/login, ${err.message}`);
+    console.log(`ERROR: cont/loginProcess, ${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
