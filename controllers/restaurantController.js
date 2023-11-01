@@ -4,6 +4,7 @@ const Product = require("../models/Product");
 
 const restaurantController = module.exports;
 
+// home page un hizmat qiladi. sucess bo'lsa try ni, error bo'lsa catch ni  qaytarib beradi
 restaurantController.home = (req, res) => {
   try {
     console.log("Get: cont/Home");
@@ -14,6 +15,7 @@ restaurantController.home = (req, res) => {
   }
 };
 
+//
 restaurantController.getMyRestauranProducts = async (req, res) => {
   try {
     console.log("GET: cont/getMyRestauranProducts");
@@ -27,6 +29,7 @@ restaurantController.getMyRestauranProducts = async (req, res) => {
   }
 };
 
+// signUp qilish un hizmat qiladi.signUp to'g'ri bo'lsa try, to'g'ri bo'lmasa catch ni qaytarib beradi.
 restaurantController.getSignupMyRestaurant = async (req, res) => {
   try {
     console.log("GET: cont/getSignupMyRestaurant");
@@ -37,6 +40,7 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
   }
 };
 
+// SignUp qilganda ishlaydi. sucess bo'lsa resto/products/menu pageiga o'tkazadi.
 restaurantController.signupProcess = async (req, res) => {
   try {
     console.log("POST: const/signupProcess");
@@ -53,6 +57,7 @@ restaurantController.signupProcess = async (req, res) => {
   }
 };
 
+// getLoginMyRestaurant API si login bolganda, login-page ga o'tkazib beradi.
 restaurantController.getLoginMyRestaurant = async (req, res) => {
   try {
     console.log("GET: cont/getLoginMyRestaurant");
@@ -63,13 +68,13 @@ restaurantController.getLoginMyRestaurant = async (req, res) => {
   }
 };
 
+// loginProcess da login qilgan userni datasini mb_typei admin bo'lsa all-restaurant page iga o'tkazadi,bo'lmasa products-menu ga o'tkazadi.
 restaurantController.loginProcess = async (req, res) => {
   try {
     console.log("POST: const/loginProcess");
     const data = req.body,
       member = new Member(),
       result = await member.loginData(data);
-
     req.session.member = result;
     req.session.save(function () {
       result.mb_type === "ADMIN"
@@ -87,6 +92,7 @@ restaurantController.logout = (req, res) => {
   req.send("You are loged out");
 };
 
+// validateAuthRestaurant da SignUp qilganda mb_typei restaurant bo'lsa keyini jarayonga o'tkazadi.
 restaurantController.validateAuthRestaurant = (req, res, next) => {
   console.log(req.session.member);
   if (req.session?.member?.mb_type === "RESTAURANT") {
@@ -95,8 +101,7 @@ restaurantController.validateAuthRestaurant = (req, res, next) => {
   } else
     res.json({
       state: "failed",
-      message:
-        "Membelarni taypi restorant bolgan userlarni keyingi bolimga otkaz",
+      message: "Membelarni taypi 'RESTAURANT' bo'lmagan user",
     });
 };
 

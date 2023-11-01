@@ -12,6 +12,7 @@ productController.getAllProducts = async (req, res) => {
   }
 };
 
+// addNewProduct da req.body da product_images bo'lsa req ichidagi files ni aylantirib berayapti hamma rasmni olishi un.
 productController.addNewProduct = async (req, res) => {
   try {
     console.log("POST: cont/addNewProduct");
@@ -20,11 +21,10 @@ productController.addNewProduct = async (req, res) => {
     const product = new Product();
     let data = req.body;
     data.product_images = req.files.map((ele) => {
-      return ele.path;
+      return ele.path; // ele.path elementini DataBasega path qilishini sababi,DataBase da path yo'q.
     });
 
     const result = await product.addNewProductData(data, req.member);
-
     const html = `<script>
     alert(new dish added successully);
     window.location.replace('/resto/products/menu')

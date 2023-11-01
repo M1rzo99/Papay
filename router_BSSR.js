@@ -7,6 +7,7 @@ const uploader_product = require("./utils/upload-multer")("products");
 /*************************
  *         BSSR EJS      *
  *************************/
+
 // bu router_bssr restoron va adminlar uchundir.
 
 router_bssr.get("/", restaurantController.home);
