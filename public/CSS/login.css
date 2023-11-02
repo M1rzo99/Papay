@@ -176,7 +176,7 @@ body {
   flex: row;
   justify-content: space-between;
 }
-.media-frame .upload_image_frame {
+.media-frame .upload_img_frame {
   position: relative;
   width: 275px;
   height: 93%;
@@ -218,7 +218,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #6a7a99;
+  background: #3e5481;
   border-radius: 0px 8px 8px 0px;
   font-family: "GT Walsheim Pro";
   color: #ffffff;

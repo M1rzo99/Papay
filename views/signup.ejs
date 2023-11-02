@@ -3,8 +3,9 @@
 <link rel="stylesheet" type="text/css" href="/CSS/login.css" />
 <body>
   <form
+    onsubmit="return validateSignUpForm()"
     class="login_container"
-    action="/resro/sign-up"
+    action="/resto/sign-up"
     method="POST"
     enctype="multipart/form-data"
   >
@@ -26,6 +27,7 @@
           <input
             type="text"
             name="mb_nick"
+            class="mb_nick"
             placeholder="foydalanuvchining ismi"
             value=""
             required
@@ -37,6 +39,7 @@
           <input
             type="number"
             name="mb_phone"
+            class="mb_phone"
             placeholder="telefon number"
             value=""
             required
@@ -50,6 +53,7 @@
           <input
             type="password"
             name="mb_password"
+            class="mb_password"
             placeholder="passwordni  kiriting"
             value=""
             required
@@ -61,6 +65,7 @@
           <input
             type="password"
             name="mb_confirm_password"
+            class="mb_confirm_password"
             placeholder="passwordni tasdiqlash"
             value=""
             required
@@ -70,21 +75,20 @@
 
       <div class="login_input_frame">
         <div class="media-frame">
-          <img class="upload_image_frame" src="/images/default.jpeg" alt="" />
+          <img class="upload_img_frame" src="/images/default.jpeg" />
           <div class="upload_container">
             <span class="media_text">taom rasmi</span>
-            <div class="filebox bs3 -primary preview-image">
+            <div class="filebox bs3-primary preview-image">
               <input
-                class="upload_name"
+                class="upload-name"
                 value="rasmni tanlang"
                 disabled="disabled"
               />
-              <label> rasm yuklash</label>
+              <label for="input_file"> rasm yuklash</label>
               <input
                 type="file"
                 id="input_file"
                 name="restaurant_img"
-                placeholder="choose file"
                 class="upload-hidden form-control-file restaurant_img"
               />
             </div>
@@ -101,4 +105,59 @@
     </div>
   </form>
 </body>
+
+<script>
+  $(function () {
+    let fileTarget = $(".filebox .upload-hidden");
+    let filename = "";
+    fileTarget.on("change", function () {
+      if (window.FileReader) {
+        const uploading_file = $(this)[0].files[0];
+        const fileType = uploading_file["type"];
+        const validImagesTypes = ["image/jpg", "image/jpeg", "image/png"];
+        if (!validImagesTypes.includes(fileType)) {
+          alert(
+            "iltimos ruhsat etilgan formatdagi rasmlarni yuklang:jpg,png,jpeg"
+          );
+        } else {
+          if (uploading_file) {
+            console.log(URL.createObjectURL(uploading_file));
+            $(".upload_img_frame")
+              .attr("src", URL.createObjectURL(uploading_file))
+              .addClass("succes");
+          }
+          filename = uploading_file.name;
+        }
+      }
+      $(this).siblings(".upload-name").val(filename);
+    });
+  });
+
+  function validateSignUpForm() {
+    const mb_nick = $(".mb_nick").val();
+    const mb_phone = $(".mb_phone").val();
+    const mb_password = $(".mb_password").val();
+    const mb_confirm_password = $(".mb_confirm_password").val();
+    const restaurant_img = $(".restaurant_img").get(0).files(0) ?? null;
+    console.log(restaurant_img);
+    if (
+      mb_nick == "" ||
+      mb_password == "" ||
+      mb_phone == "" ||
+      mb_confirm_password == ""
+    ) {
+      alert("iltimos hamma  ma'lumotlarni kiriting");
+      return false;
+    } else if (mb_password !== mb_confirm_password) {
+      alert(`iltimos passwordni to'g'ri kiriting`);
+    }
+
+    if (!restaurant_img) {
+      alert("iltimos rasm yuklang!");
+      return false;
+    }
+
+    return true;
+  }
+</script>
 <%-include('includes/footer')%>
