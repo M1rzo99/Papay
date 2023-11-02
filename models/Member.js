@@ -23,7 +23,7 @@ class Member {
       const lengthPassword = result.mb_password.length;
       let secret_password = "";
       for (let i = 0; i < lengthPassword; i++) {
-        secret_password += "x";
+        // secret_password += "x";
       }
       result.mb_password = secret_password;
       console.log(result);
