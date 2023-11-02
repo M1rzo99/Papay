@@ -138,7 +138,7 @@
     const mb_phone = $(".mb_phone").val();
     const mb_password = $(".mb_password").val();
     const mb_confirm_password = $(".mb_confirm_password").val();
-    const restaurant_img = $(".restaurant_img").get(0).files(0) ?? null;
+    const restaurant_img = $(".restaurant_img").get(0).files[0] ?? null;
     console.log(restaurant_img);
     if (
       mb_nick == "" ||
@@ -151,7 +151,6 @@
     } else if (mb_password !== mb_confirm_password) {
       alert(`iltimos passwordni to'g'ri kiriting`);
     }
-
     if (!restaurant_img) {
       alert("iltimos rasm yuklang!");
       return false;

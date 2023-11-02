@@ -45,21 +45,22 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
 // SignUp qilganda ishlaydi. sucess bo'lsa resto/products/menu pageiga o'tkazadi.
 restaurantController.signupProcess = async (req, res) => {
   try {
-    console.log("POST: const/signupProcess");
+    console.log("POST: Cont/signupProcess");
+    res.send("sucess");
     assert(req.file, Definer.general_err3);
 
-    let new_member = req.body;
-    new_member.mb_type = "RESTAURANT";
-    new_member.mb_image = req.file.path;
+    // let new_member = req.body;
+    // new_member.mb_type = "RESTAURANT";
+    // new_member.mb_image = req.file.path;
 
-    const member = new Member();
-    const result = await member.signupData(new_member);
-    assert(result, Definer.general_err1);
+    // const member = new Member();
+    // const result = await member.signupData(new_member);
+    // assert(result, Definer.general_err1);
     //SESSION
     req.session.member = result;
     res.redirect("/resto/products/menu");
   } catch (err) {
-    console.log(`ERROR: cont/signupProcess, ${err.message}`);
+    console.log(`ERROR: Cont/signupProcess, ${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
