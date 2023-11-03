@@ -97,7 +97,14 @@ restaurantController.loginProcess = async (req, res) => {
 
 restaurantController.logout = (req, res) => {
   console.log("GET: cont/logout");
-  res.send("You are loged out");
+  try {
+    req.session.destroy(function () {
+      res.redirect("/resto");
+    });
+  } catch (err) {
+    console.log(`ERROR: cont/logout, ${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
 };
 
 // validateAuthRestaurant da SignUp qilganda mb_typei restaurant bo'lsa keyini jarayonga o'tkazadi.
