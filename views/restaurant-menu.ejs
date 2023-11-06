@@ -36,10 +36,7 @@
               <td><%= key + 1 %></td>
               <td><%= value.product_name%></td>
               <td><%= value.product_collection%></td>
-              <td>
-                <%= value.product_collection === 'drink'? value.product_volume :
-                value.product_size %>
-              </td>
+              <td> <%= value.product_collection === 'drink'? value.product_volume : value.product_size %></td>
               <td><%= value.product_price%></td>
               <td><%= value.product_left_cnt%></td>
               <td>
@@ -51,14 +48,14 @@
             </tbody>
             <%});%>
           </table>
-          <div class="long_input" style="align-items: flex-end; margin-bottom: 25px;">
-          <button class="btn btn-primary hiding_btn">Taom Qo'shish</button>
-          </div>
         </div>
-<form onsubmit="return validateForm()" 
-        action="/resto/products/create" method="POST" class="dish_container"
-        enctype="multipart/form-data"
-        >
+
+             <div class="long_input" style="align-items:flex-end; margin-bottom: 25px;">
+              <button class="btn btn-primary hiding_btn">Taom Qo'shish</button>
+              </div>
+
+              <form onsubmit="return validateForm()" action="/resto/products/create" method="POST" class="dish_container" enctype="multipart/form-data">
+    
           <div class="long_input long_input_product">
             <span class="new_dish_txt">Yangi Taom Qo'shish</span>
           </div>
@@ -76,7 +73,7 @@
             </div>
             <div class="half_input">
               <label for="product_left_cnt">Taom Qoldiq Miqdori</label>
-              <input id="product_left_cnt" type="number" placeholder="Taom Mavjud Miqdori" name="product_left_cnt" class="product_left_cnt">
+              <input id="product_left_cnt" type="number" placeholder="Taom mavjud miqdori" name="product_left_cnt" class="product_left_cnt">
             </div>
           </div>
           <div class="half_input_frame">
@@ -100,12 +97,12 @@
             </select>
           </div>
           <div class="half_input" id="product_volume" style="display: none;"> 
-            <label >Ichimlik Hajmi</label>
+            <label>Ichimlik Hajmi</label>
             <select class="product_volume" name="product_volume">
-              <option value="0.5">0.5 liter </option>
-              <option value="1" selected>1 liter </option>
-              <option value="1.2">1.2 liter </option>
-              <option value="1.5">1.5 liter </option>
+              <option value="0.5">0.5 litr </option>
+              <option value="1" selected>1 litr </option>
+              <option value="1.2">1.2 litr </option>
+              <option value="1.5">1.5 litr </option>
               <option value="2">2 liter </option>
             </select>
            </div>
@@ -118,7 +115,7 @@
 
             <div class="img_frame">
             <label for="">Taom Rasmlari</label>
-            <div class="media-frame">
+            <div class="media_frame">
               <div class="upload_img_box">
                 <img src="/images/upload.png" class="1" id="image_section_1" alt="dish">
                 <input type="file" name="product_images" class="image_one" id="file" onchange="previewFileHandler(this, 1)">
@@ -139,24 +136,24 @@
                 <img src="/images/upload.png" class="5" id="image_section_5" alt="dish">
                 <input type="file" name="product_images" class="image_five" id="file" onchange="previewFileHandler(this, 5)">
               </div>
-              <input type="text" value="<%= member._id%>" name="restaurant_id" class="restaurant_id" hidden>
+              <input value="<%= member._id%>" name="restaurant_id" class="restaurant_id" hidden>
             </div>
           </div>
           <div class="long_input" style="align-items: flex-end; margin-bottom: 25px">
             <button class="btn btn-primary" id="create_product" type="submit">Chop Etish</button>
           </div>
-
         </form>
-           
       </div>
     </div>
   </div>
+
   <script>
     $(function(){
+
       $('.hiding_btn').on("click", ()=>{
         $(".dish_container").slideToggle(500);
-        $('.hiding_btn').hide()
-      })
+        $('.hiding_btn').css("display","none");
+      });
 
       $(".product_collection").on("change", ()=>{
         const selected_value = $(".product_collection").val();
@@ -168,7 +165,7 @@
           $("#product_size").show();
         }
       });
-
+          // product status changer
       $(".new_product_status").on("change", async function(e){
         const id = e.target.id;
         const product_status = $(`#${id}.new_product_status`).val();
@@ -216,16 +213,18 @@ function previewFileHandler(input, order){
       const image_class_name = input.className;
       const file = $(`.${image_class_name}`).get(0).files[0],
         fileType = file['type'],
-        validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+        validImageTypes = ["image/jpg", "image/jpeg", "image/png",];
       
         if(!validImageTypes.includes(fileType)){
           alert("Iltimos ruxsat etilgan formatdagi rasmlarni yuklang! (jpg, jpeg, png)")
         }else{
-          let reader = new FileReader();
+         if(file){
+           let reader = new FileReader();
           reader.onload = function(){
             $(`#image_section_${order}`).attr("src", reader.result)
           }
           reader.readAsDataURL(file);
+         }
         }
     }
   </script>

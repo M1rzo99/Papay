@@ -109,7 +109,6 @@ restaurantController.logout = (req, res) => {
 
 // validateAuthRestaurant da SignUp qilganda mb_typei restaurant bo'lsa keyini jarayonga o'tkazadi.
 restaurantController.validateAuthRestaurant = (req, res, next) => {
-  console.log(req.session.member);
   if (req.session?.member?.mb_type === "RESTAURANT") {
     req.member = req.session.member;
     next();
@@ -126,5 +125,29 @@ restaurantController.checkSessions = (req, res) => {
     res.json({ state: "succeed", data: req.session.member });
   } else {
     res.json({ state: "fail", message: "You are not authintification" });
+  }
+};
+
+restaurantController.validateAdmin = (req, res, next) => {
+  if (req.session?.member?.mb_type === "ADMIN") {
+    req.member = req.session.member;
+    next();
+  } else {
+    const html = `<script> 
+    alert ('Admin Page: Permission denied!');
+    window.location.replace('/resto');
+    </script>`;
+    res.end(html);
+  }
+};
+
+restaurantController.getAllRestaurants = (req, res) => {
+  try {
+    console.log("GET cont/getAllRestaurants");
+    // ToDo: hamma restaurantlarni DataBase dan chaqiramiz
+    res.render("all-restaurants");
+  } catch (err) {
+    console.log(`ERROR: cont/getAllRestaurants, ${err.message}`);
+    res.json({ state: "fail", message: err.message });
   }
 };

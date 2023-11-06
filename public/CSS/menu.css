@@ -1,53 +1,108 @@
 .restaurant_menu_frame {
-  display: flex;
-  padding-bottom: 80px;
-  align-items: center;
-  flex-direction: column;
   position: relative;
+  padding-bottom: 80px;
   width: 100%;
   height: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: #2c261e;
 }
 
 .restaurant_menu_frame .restaurant_container {
-  display: flex;
-  margin-top: 100px;
-  align-items: center;
-  flex-direction: column;
   position: relative;
-  width: 1320px;
+  margin-top: 100px;
+  width: 80%;
   height: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.restaurant_container .dish_table {
-  display: flex;
-  margin-top: 30px;
-  align-items: center;
-  flex-direction: column;
+.restaurant_container .dishes_table {
   position: relative;
   width: 100%;
   height: auto;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.new_dish_txt {
-  font-family: "Source Serif Pro";
-  font-style: normal;
-  font-weight: 400;
-  padding-left: 80px;
-  font-size: 20px;
-  line-height: 20px;
-  color: #ffffff;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-.spac_select {
+.spec_select {
   position: relative;
   padding: 0px 7px;
   height: 27px;
   background: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 8px;
+  font-family: "GT Walshein Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26px;
+  color: #4f547b;
+}
+
+.restaurant_container .dish_container {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+  height: auto;
+
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.long_input {
+  position: relative;
+  margin-top: 25px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.new_dish_txt {
+  font-family: "Source Serif Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 25px;
+  color: #ffffff;
+}
+.long_input {
+  position: relative;
+  margin-top: 25px;
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.long_input label {
+  font-family: "Source Serif Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25px;
+  color: #ffffff;
+}
+
+.long_input input {
+  position: relative;
+  margin-top: 10px;
+  padding-left: 20px;
+  width: 100%;
+  height: 54px;
+  border: none;
+
+  background-color: #f7f7f7;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+
   font-family: "GT Walsheim Pro";
   font-style: normal;
   font-weight: 400;
@@ -56,12 +111,51 @@
   color: #4f547b;
 }
 
+.login_input_frame {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.long_input label {
+  font-family: "Source Serif Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 25px;
+  color: #fff;
+}
+
+.long_input input {
+  position: relative;
+  margin-top: 10px;
+  padding-left: 20px;
+  width: 100%;
+  height: 54px;
+  border: none;
+
+  background: #f7f7f7;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 25px;
+  color: #4f547b;
+}
+
 .dish_container .half_input_frame {
   position: relative;
   margin-top: 25px;
   width: 100%;
   height: auto;
+
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
@@ -79,7 +173,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 25px;
-  color: #ffffff;
+  color: #fff;
 }
 
 .half_input input {
@@ -89,15 +183,16 @@
   width: 100%;
   height: 54px;
   border: none;
+
   background: #f7f7f7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
 
-.half_input select {
+.half_input_frame select {
   position: relative;
   margin-top: 10px;
-  padding: 0px 20px;
+  padding: 0 20px;
   width: 100%;
   height: 55px;
   display: flex;
@@ -105,10 +200,11 @@
   background: #f7f7f7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
+
   font-family: "GT Walsheim Pro";
-  font-size: 15px;
-  font-weight: 400;
   font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
   line-height: 26px;
   color: #4f547b;
 }
@@ -119,9 +215,13 @@
   padding: 20px;
   width: 100%;
   height: 200px;
+  display: flex;
   border: none;
+
   background: #f7f7f7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+
   font-family: "GT Walsheim Pro";
   font-style: normal;
   font-weight: 400;
@@ -144,32 +244,34 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 25px;
-  color: #ffffff;
+  color: #fff;
 }
 
-.media-frame {
+.media_frame {
   position: relative;
   margin-top: 10px;
   width: 100%;
   height: 250px;
+
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
-.media-frame .upload_img_box {
+.media_frame .upload_img_box {
   position: relative;
   width: 19%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
 .upload_img_box img {
   position: relative;
-  width: 100%;
+  width: 80%;
   height: 100%;
   display: flex;
   border-radius: 10px;
@@ -181,9 +283,9 @@
   border-radius: 10px;
   background: grey;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 0px;
   width: 100%;
+  top: 0px;
   height: 100%;
   cursor: pointer;
 }

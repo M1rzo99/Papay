@@ -9,7 +9,6 @@ class Product {
   }
   async getaAllProductsDataResto(member) {
     try {
-      member._id = shapeIntoMongooseObjectId(member._id);
       const result = await this.productModel.find({
         restaurant_mb_id: member._id,
       });
