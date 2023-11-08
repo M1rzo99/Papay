@@ -46,7 +46,7 @@
   color: #4f547b;
 }
 
-.restaurant_container .dish_container {
+.restaurant_container.dish_container {
   position: relative;
   margin-top: 20px;
   width: 100%;
@@ -107,8 +107,8 @@ input:checked + .slider {
   background-color: #2196f3;
 }
 
-input :focus + .slider {
-  background-color: #2196f3;
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider::before {
@@ -116,11 +116,11 @@ input:checked + .slider::before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-.slider .round {
+.slider.round {
   border-radius: 34px;
 }
 
-.slider .round:before {
+.slider.round:before {
   border-radius: 50%;
 }
 

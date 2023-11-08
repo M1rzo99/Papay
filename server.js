@@ -13,15 +13,15 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err, data) => {
     if (data) {
-      console.log(color.blue("Successfully connection to Mongodb Database"));
+      console.log(color.yellow("Successfully connection to Mongodb Database"));
       const app = require("./app");
       const server = http.createServer(app);
       const port = process.env.PORT ?? 3003;
       server.listen(
         port,
         console.info(
-          color.black(`Server is listening on port ${port}`),
-          color.black(`http://localhost:${port}`)
+          color.blue(`Server is listening on port ${port}`),
+          color.italic(`http://localhost:${port}`)
         )
       );
     } else {

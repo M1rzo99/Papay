@@ -30,7 +30,11 @@ router_bssr.get("/logout", restaurantController.logout);
 router_bssr.get("/check-me", restaurantController.checkSessions);
 
 // bu uchta Api productlarga tegishlidir.
-router_bssr.get("/products/menu", restaurantController.getMyRestauranProducts);
+router_bssr.get(
+  "/products/menu",
+  restaurantController.validateAuthRestaurant,
+  restaurantController.getMyRestauranProducts
+);
 router_bssr.post(
   "/products/create",
   restaurantController.validateAuthRestaurant,
