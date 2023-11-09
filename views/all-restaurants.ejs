@@ -39,7 +39,7 @@
               <td><%= value.mb_phone%></td>
               <td style="width: 13%">
                 <label class="switch">
-                  <input class="mb_top" type="checkbox" id="<%= value._id %>" <%
+                  <input class="mb_top" type="checkbox" id="<%= value._id %>" <%=
                   value.mb_top === 'Y' ? "checked" : '' %> />
                   <span class="slider round"></span>
                 </label>
@@ -47,9 +47,9 @@
 
               <td style="width: 13%">
                 <select class="spec_select mb_status" id="<%= value._id %>">
-                <option value="ONPAUSE" <% value.mb_status === 'ONPAUSE' ? "selected" : '' %> >ONPAUSE</option>
-                  <option value="ACTIVE"  <% value.mb_status === 'ACTIVE' ? "selected" : '' %> >ACTIVE</option>
-                  <option value="DELETED"<% value.mb_status === 'DELETED' ? "selected" : '' %> >DELETED</option>
+                <option value="ONPAUSE" <%= value.mb_status === 'ONPAUSE' ? "selected" : '' %> >ONPAUSE</option>
+                  <option value="ACTIVE"  <%= value.mb_status === 'ACTIVE' ? "selected" : '' %> >ACTIVE</option>
+                  <option value="DELETED"<%= value.mb_status === 'DELETED' ? "selected" : '' %> >DELETED</option>
                 </select>
               </td>
             </tbody>
