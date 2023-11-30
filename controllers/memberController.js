@@ -53,13 +53,28 @@ memberController.createToken = (result) => {
       _id: result._id,
       mb_nick: result.mb_nick,
       my_type: result.mb_type,
+      mb_phone: result.mb_phone,
+      mb_status: result.mb_status,
     };
     const token = jwt.sign(upload_data, process.env.SECRET_TOKEN, {
       expiresIn: "6h",
     });
     assert.ok(token, Definer.auth_err2);
     return token;
-    return;
+  } catch (err) {
+    throw err;
+  }
+};
+
+memberController.checkMyAuthentification = (req, res) => {
+  try {
+    console.log("GET cont/checkMyAuthentification");
+    let token = req.cookies["access_token"];
+    console.log("token::", token);
+
+    const member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;
+    assert.ok(member, Definer.auth_err2);
+    res.json({ state: "succeed", data: member });
   } catch (err) {
     throw err;
   }
