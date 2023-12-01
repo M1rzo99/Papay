@@ -1,3 +1,4 @@
+const { shapeIntoMongooseObjectId } = require("../lib/config");
 const Definer = require("../lib/mistakes");
 const MemberSchema = require("../schema/member.model");
 const assert = require("assert");
@@ -48,6 +49,28 @@ class Member {
       assert.ok(isMatch, Definer.auth_err4);
       console.log("member:::", member);
       return await this.memberModel.findOne({ mb_nick: input.mb_nick });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getChosenMemberData(member, id) {
+    try {
+      id = shapeIntoMongooseObjectId(id);
+      console.log("member:::::", member);
+      if (member) {
+        // condition if not seen before
+      }
+
+      const result = await this.memberModel
+        .aggregate([
+          { $match: { _id: id, mb_status: "ACTIVE" } },
+          { $unset: "mb_password" },
+        ])
+        .exec();
+
+      assert.ok(result, Definer.auth_err2);
+      return result[0];
     } catch (err) {
       throw err;
     }
