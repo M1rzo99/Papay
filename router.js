@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const memberController = require("./controllers/memberController");
+const express = require("express");
 
 //Member Controller
 router.post("/signup", memberController.signup);
 router.post("/login", memberController.login);
 router.get("/logout", memberController.logout);
-router.get("/check-me", memberController.checkMyAuthentification);
+router.get("/check-me", memberController.checkMyAuthentication);
 router.get(
   "/member/:id",
   memberController.retrieveAuthMember,
