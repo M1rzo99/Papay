@@ -1,13 +1,14 @@
 const ViewModel = require("../schema/view.model");
-const memberModel = require("../schema/member.model");
+const MemberModel = require("../schema/member.model");
 const assert = require("assert");
 const Definer = require("../lib/mistakes");
-
+const ProductModel = require("../schema/product.model");
 class View {
   constructor(mb_id) {
     this.viewModel = ViewModel;
+    this.memberModel = MemberModel;
+    this.productModel = ProductModel;
     this.mb_id = mb_id;
-    this.memberModel = memberModel;
   }
 
   async validateChosenTarget(view_ref_id, group_type) {
@@ -19,6 +20,14 @@ class View {
             .findOne({
               _id: view_ref_id,
               mb_status: "ACTIVE",
+            })
+            .exec();
+          break;
+        case "product":
+          result = await this.productModel
+            .findOne({
+              _id: view_ref_id,
+              mb_status: "PROCESS",
             })
             .exec();
           break;
@@ -58,6 +67,16 @@ class View {
                 _id: view_ref_id,
               },
               { $inc: { mb_views: 1 } } // viewsni 1 taga oshirib beradi.
+            )
+            .exec();
+
+        case "product":
+          await this.productModel
+            .findByIdAndUpdate(
+              {
+                _id: view_ref_id,
+              },
+              { $inc: { product_views: 1 } } // viewsni 1 taga oshirib beradi.
             )
             .exec();
           break;
