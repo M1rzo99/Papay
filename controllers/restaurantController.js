@@ -7,6 +7,24 @@ const Restaurant = require("../models/Restaurant");
 
 const restaurantController = module.exports;
 
+restaurantController.getRestaurants = async (req, res) => {
+  try {
+    console.log("Get: cont/getRestaurants");
+    const data = req.query,
+      restaurant = new Restaurant(),
+      result = await restaurant.getRestaurantsData(req.member, data);
+    res.json({ state: "success", data: result });
+  } catch (err) {
+    console.log("ERROR: cont/getRestaurants", err);
+    res.json({ state: "fail", message: err.message });
+  }
+};
+
+/****************************** */
+/*      BSSR  RELATED METHODS   */
+/***************************** */
+// pastdagilar  hammasi  BSSR un xizmat qiladi
+
 // home page un hizmat qiladi. sucess bo'lsa try ni, error bo'lsa catch ni  qaytarib beradi
 restaurantController.home = (req, res) => {
   try {
@@ -123,7 +141,7 @@ restaurantController.validateAuthRestaurant = (req, res, next) => {
 restaurantController.checkSessions = (req, res) => {
   console.log(req.session?.member);
   if (req.session?.member) {
-    res.json({ state: "succeed", data: req.session.member });
+    res.json({ state: "success", data: req.session.member });
   } else {
     res.json({ state: "fail", message: "You are not authintification" });
   }
@@ -163,7 +181,6 @@ restaurantController.updateRestaurantByAdmin = async (req, res) => {
     const restaurant = new Restaurant();
     const result = await restaurant.updateRestaurantByAdminData(req.body);
     await res.json({ state: "success", data: result });
-  
   } catch (err) {
     console.log(`ERROR: cont/getAllRestaurants, ${err.message}`);
     res.json({ state: "fail", message: err.message });

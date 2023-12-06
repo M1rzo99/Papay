@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const memberController = require("./controllers/memberController");
 const productController = require("./controllers/productController");
+const restaurantController = require("./controllers/restaurantController");
 const express = require("express");
 
 //Member Related routers
@@ -24,6 +25,13 @@ router.get(
   "/products/:id",
   memberController.retrieveAuthMember,
   productController.getChosenProduct
+);
+
+// Restaurant related routers
+router.get(
+  "/restaurants",
+  memberController.retrieveAuthMember,
+  restaurantController.getRestaurants
 );
 
 module.exports = router;
