@@ -3,6 +3,7 @@ const MemberModel = require("../schema/member.model");
 const Definer = require("../lib/mistakes");
 const { shapeIntoMongooseObjectId } = require("../lib/config");
 const { render } = require("ejs");
+const Member = require("./Member");
 
 class Restaurant {
   constructor() {
@@ -43,6 +44,26 @@ class Restaurant {
     } catch (err) {
       throw err;
     }
+  }
+
+  async getChosenRestaurantsData(member, id) {
+    try {
+      id = shapeIntoMongooseObjectId(id);
+
+      if (member) {
+        const member_obj = new Member();
+        await member_obj.viewChosenItemByMember(member, id, "member");
+      }
+
+      const result = await this.memberModel
+        .findOne({
+          _id: id,
+          mb_status: "ACTIVE",
+        })
+        .exec();
+      assert.ok(result, Definer.general_err1);
+      return result;
+    } catch (err) {}
   }
 
   async getAllRestaurantsData() {
