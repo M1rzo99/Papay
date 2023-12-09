@@ -63,7 +63,9 @@ class Restaurant {
         .exec();
       assert.ok(result, Definer.general_err1);
       return result;
-    } catch (err) {}
+    } catch (err) {
+      throw err;
+    }
   }
 
   async getAllRestaurantsData() {
