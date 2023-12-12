@@ -6,6 +6,7 @@ const OrderModel = require("../schema/order.model");
 const OrderItemModel = require("../schema/order_item_model");
 const Definer = require("../lib/mistakes");
 const assert = require("assert");
+const { log } = require("console");
 
 class Order {
   constructor() {

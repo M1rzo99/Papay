@@ -42,3 +42,17 @@ orderController.editChosenOrder = async (req, res) => {
     res.json({ state: "fail", message: err.message });
   }
 };
+
+orderController.createArticle = async (req, res) => {
+  try {
+    console.log("POST: cont/createArticle");
+    assert.ok(req.member, Definer.auth_err5);
+
+    // const order = new Order();
+    // const result = await order.createArticleData(req.member, req.body);
+    // res.json({ state: "success", data: result });
+  } catch (err) {
+    console.log(`ERROR, cont/signup, ${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+};
