@@ -19,7 +19,7 @@ class Order {
       const mb_id = shapeIntoMongooseObjectId(member._id);
 
       data.map((item) => {
-        order_total_amount += item["quentity"] * item["price"];
+        order_total_amount += item["quantity"] * item["price"];
       });
 
       if (order_total_amount < 100) {
@@ -81,7 +81,7 @@ class Order {
       item._id = shapeIntoMongooseObjectId(item._id);
 
       const order_item = new this.orderItemModel({
-        item_quentity: item["quentity"],
+        item_quentity: item["quantity"],
         item_price: item["price"],
         order_id: order_id,
         product_id: item["_id"],
@@ -123,6 +123,24 @@ class Order {
         ])
         .exec();
       console.log("result:::", result);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async editChosenOrderData(member, data) {
+    try {
+      const mb_id = shapeIntoMongooseObjectId(member._id);
+      const order_id = shapeIntoMongooseObjectId(data.order_id);
+      const order_status = data.order_status.toUpperCase();
+
+      const result = await this.orderModel.findOneAndUpdate(
+        { mb_id: mb_id, _id: order_id },
+        { order_status: order_status },
+        { runValidators: true, lean: true, returnDocument: "after" }
+      );
+      console.log("result:::", result);
+      assert.ok(result, Definer.order_err3);
       return result;
     } catch (err) {
       throw err;
