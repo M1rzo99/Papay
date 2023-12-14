@@ -88,7 +88,7 @@ class Member {
       // validation needed (biz o'rayotgan target haqiqatdan ham mavjudmi)
 
       const isValied = await view.validateChosenTarget(view_ref_id, group_type);
-      console.log("Isvalied:", isValied);
+      console.log("isvalied:::", isValied);
       assert.ok(isValied, Definer.general_err2);
 
       // logged user hass seen target before

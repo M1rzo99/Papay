@@ -103,7 +103,6 @@ class Community {
   async getChosenArticleData(member, art_id) {
     try {
       art_id = shapeIntoMongooseObjectId(art_id);
-      // increase art_Views when user has not seen before
 
       if (member) {
         const member_obj = new Member();
