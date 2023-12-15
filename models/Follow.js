@@ -3,6 +3,7 @@ const { shapeIntoMongooseObjectId } = require("../lib/config");
 const Definer = require("../lib/mistakes");
 const FollowModel = require("../schema/follow.model");
 const MemberModel = require("../schema/member.model");
+const { query } = require("express");
 
 class Follow {
   constructor() {
@@ -67,6 +68,46 @@ class Follow {
           )
           .exec();
       }
+      return true;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async unSubscribeData(member, data) {
+    try {
+      const subscriber_id = shapeIntoMongooseObjectId(member._id);
+      const follow_id = shapeIntoMongooseObjectId(data.mb_id);
+      const result = await this.followModel.findByIdAndDelete({
+        follow_id: follow_id,
+        subscriber_id: subscriber_id,
+      });
+
+      assert.ok(result, Definer.general_err1);
+      await this.modifyMemberFollowCount(follow_id, "subscriber_change", -1);
+      await this.modifyMemberFollowCount(subscriber_id, "follow_change", -1);
+      return true;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getMemberFollowingsData(inquiry) {
+    try {
+      console.log("query::", inquiry);
+      const subscriber_id = shapeIntoMongooseObjectId(inquiry.mb_id),
+        page = inquiry.page * 1,
+        limit = inquiry.limit * 1;
+      const result = await this.followModel
+        .aggregate([
+          { $match: { subscriber_id: subscriber_id } },
+          { $sort: { createdAt: -1 } },
+          { $skip: (page - 1) * limit },
+          { $limit: limit },
+        ])
+        .exec();
+      assert.ok(result, Definer.follow_err3);
+      return result;
     } catch (err) {
       throw err;
     }

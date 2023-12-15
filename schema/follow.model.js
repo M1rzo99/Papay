@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 const followSchema = new mongoose.Schema(
   {
-    follow_id: { type: Schema.Types.ObjectId, required: true },
-    subscriber_id: { type: Schema.Types.ObjectId, required: true },
+    follow_id: { type: Schema.Types.Object, required: true },
+    subscriber_id: { type: Schema.Types.Object, required: true },
   },
   { timestamps: true } //CreatedAt UpdatedAt
 );
