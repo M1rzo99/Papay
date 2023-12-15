@@ -13,7 +13,7 @@ const memberSchema = new mongoose.Schema(
       index: {
         unique: true,
         sparse: true,
-      }
+      },
     },
     mb_phone: {
       type: String,
@@ -21,12 +21,12 @@ const memberSchema = new mongoose.Schema(
       index: {
         unique: true,
         sparse: true,
-      }
+      },
     },
     mb_password: {
       type: String,
       required: true,
-      select: false
+      select: false,
     },
     mb_type: {
       type: String,
@@ -34,7 +34,7 @@ const memberSchema = new mongoose.Schema(
       enum: {
         values: member_type_enums,
         message: "{VALUE} is not among permitted values",
-      }
+      },
     },
     mb_status: {
       type: String,
@@ -42,20 +42,20 @@ const memberSchema = new mongoose.Schema(
       enum: {
         values: member_status_enums,
         message: "{VALUE} is not among permitted values",
-      }
+      },
     },
     mb_address: {
-      type: String
+      type: String,
     },
     mb_description: {
-      type: String
+      type: String,
     },
     mb_image: {
-      type: String
+      type: String,
     },
     mb_point: {
       type: Number,
-      default: 0
+      default: 0,
     },
     mb_top: {
       type: String,
@@ -63,25 +63,27 @@ const memberSchema = new mongoose.Schema(
       enum: {
         values: ordenary_enums,
         message: "{VALUE} is not among permitted values",
-      }
+      },
     },
     mb_views: {
       type: Number,
-      default: 0
+      default: 0,
     },
     mb_likes: {
       type: Number,
       required: false,
-      default: 0
+      default: 0,
     },
     mb_follow_cnt: {
       type: Number,
-      default: 0
+      default: 0,
+      require: false,
     },
     mb_subscriber_cnt: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+      require: false,
+    },
   },
   { timestamps: true } //CreatedAt UpdatedAt
 );
