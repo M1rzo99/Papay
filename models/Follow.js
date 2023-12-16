@@ -78,10 +78,13 @@ class Follow {
     try {
       const subscriber_id = shapeIntoMongooseObjectId(member._id);
       const follow_id = shapeIntoMongooseObjectId(data.mb_id);
-      const result = await this.followModel.findByIdAndDelete({
-        follow_id: follow_id,
-        subscriber_id: subscriber_id,
-      });
+      const result = await this.followModel
+        .findOneAndDelete({
+          follow_id: follow_id,
+          subscriber_id: subscriber_id,
+        })
+        .exec();
+      console.log("result::", result);
 
       assert.ok(result, Definer.general_err1);
       await this.modifyMemberFollowCount(follow_id, "subscriber_change", -1);
