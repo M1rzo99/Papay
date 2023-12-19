@@ -27,7 +27,7 @@ class Community {
       const article = new this.boArticleModel(data);
       return await article.save();
     } catch (mongo_err) {
-      throw new Error(Definer.auth_err1);
+      throw new Error(Definer.mongo_validation_err1);
     }
   }
   async getMemberArticlesData(member, mb_id, inquiry) {
