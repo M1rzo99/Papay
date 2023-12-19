@@ -1,6 +1,7 @@
 const {
   shapeIntoMongooseObjectId,
   lookup_auth_member_following,
+  lookup_auth_member_liked,
 } = require("../lib/config");
 const Definer = require("../lib/mistakes");
 const MemberSchema = require("../schema/member.model");
@@ -75,6 +76,7 @@ class Member {
       if (member) {
         // condition if not seen before
         await this.viewChosenItemByMember(member, id, "member");
+        aggregateQuery.push(lookup_auth_member_liked(auth_mb_id));
         aggregateQuery.push(
           lookup_auth_member_following(auth_mb_id, "members")
         );
