@@ -49,7 +49,7 @@ router.get(
   restaurantController.getChosenRestaurant
 );
 
-// Order Relaret routers
+// Order Relaetd routers
 router.post(
   "/orders/create",
   memberController.retrieveAuthMember,

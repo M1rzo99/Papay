@@ -54,7 +54,7 @@ const productSchema = new mongoose.Schema(
       },
     },
     product_volume: {
-      type: String, // volume ichimliklarni litrlarda olchash un kerak
+      type: Number, // volume ichimliklarni litrlarda olchash un kerak
       default: 1,
       required: function () {
         return this.product_collection === "drink";
