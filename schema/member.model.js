@@ -44,7 +44,7 @@ const memberSchema = new mongoose.Schema(
         message: "{VALUE} is not among permitted values",
       },
     },
-    mb_address: {
+    mb_adress: {
       type: String,
     },
     mb_description: {
