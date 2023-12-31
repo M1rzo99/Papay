@@ -57,10 +57,12 @@ class Product {
         await member_obj.viewChosenItemByMember(member, id, "product");
       }
 
-      const result = await this.productModel.aggregate([
-        { $match: { _id: id, product_status: "PROCESS" } },
-      ]);
-      lookup_auth_member_liked(auth_mb_id).exec();
+      const result = await this.productModel
+        .aggregate([
+          { $match: { _id: id, product_status: "PROCESS" } },
+          lookup_auth_member_liked(auth_mb_id),
+        ])
+        .exec();
       assert.ok(result, Definer.general_err1);
       return result;
     } catch (err) {
@@ -73,7 +75,7 @@ class Product {
         restaurant_mb_id: member._id,
       });
       assert.ok(result, Definer.general_err1);
-      return result;
+      return result[0];
     } catch (err) {
       throw err;
     }
