@@ -64,18 +64,19 @@ class Product {
         ])
         .exec();
       assert.ok(result, Definer.general_err1);
-      return result;
+      return result[0];
     } catch (err) {
       throw err;
     }
   }
   async getaAllProductsDataResto(member) {
     try {
+      member._id = shapeIntoMongooseObjectId(member._id);
       const result = await this.productModel.find({
         restaurant_mb_id: member._id,
       });
       assert.ok(result, Definer.general_err1);
-      return result[0];
+      return result;
     } catch (err) {
       throw err;
     }
