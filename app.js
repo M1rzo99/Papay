@@ -1,4 +1,5 @@
 const express = require("express");
+const http = require("http");
 const app = express();
 const router = require("./router.js");
 const router_BSSR = require("./router_BSSR.js");
@@ -51,4 +52,36 @@ app.set("view engine", "ejs");
 app.use("/resto", router_BSSR);
 app.use("/", router);
 
-module.exports = app;
+/* SOCKET.IO backend server */
+const server = http.createServer(app);
+const io = require("socket.io")(server, {
+  serveClient: false,
+  origins: "*:*",
+  transport: ["websocket", "xhr-polling"],
+});
+
+let online_users = 0;
+
+io.on("connection", function (socket) {
+  online_users++;
+  console.log("New user,total ::", online_users);
+  socket.emit("greetMsg", { text: "welcome" });
+  io.emit("infoMsg", { total: online_users });
+
+  // ulanga userlardan biron kimdir chiqib ketsa
+  socket.on("disconnect", function () {
+    online_users--;
+    socket.broadcast.emit("infoMsg", { total: online_users });
+    console.log("clientDisconnacted,total::", online_users);
+  });
+
+  socket.on("createMsg", function (data) {
+    console.log(data);
+    io.emit("newMsg", data); // message va kim yuborganligi
+  });
+  // socket.emit(); // ulanga odam un yoziladigon xabar,faqatgina ulangan odamga boradi
+  // socket.broadcast.emit(); // ulanga odamdan tashqari bolgan userlarga xabar yuborish un
+  // io.emit(); // xammaga xabar yuborgnda ishlatilinadi
+});
+
+module.exports = server;
