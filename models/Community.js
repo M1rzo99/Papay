@@ -93,7 +93,7 @@ class Community {
           lookup_auth_member_liked(auth_mb_id),
         ])
         .exec();
-      console.log("result:::", result);
+
       assert.ok(result, Definer.article_err3);
 
       return result;

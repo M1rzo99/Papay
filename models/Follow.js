@@ -86,7 +86,7 @@ class Follow {
           subscriber_id: subscriber_id,
         })
         .exec();
-      console.log("result::", result);
+
       assert.ok(result, Definer.general_err1);
 
       await this.modifyMemberFollowCount(follow_id, "subscriber_change", -1);
