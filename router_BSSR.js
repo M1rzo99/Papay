@@ -3,16 +3,24 @@ const router_bssr = express.Router();
 const restaurantController = require("./controllers/restaurantController");
 const productController = require("./controllers/productController");
 const uploader_product = require("./utils/upload-multer")("products");
+const uploader_members = require("./utils/upload-multer")("members");
 
 /*************************
  *         BSSR EJS      *
  *************************/
+
 // bu router_bssr restoron va adminlar uchundir.
+
+router_bssr.get("/", restaurantController.home);
 
 //Member Controller
 router_bssr
-  .get("/signup", restaurantController.getSignupMyRestaurant)
-  .post("/signup", restaurantController.signupProcess);
+  .get("/sign-up", restaurantController.getSignupMyRestaurant)
+  .post(
+    "/sign-up",
+    uploader_members.single("restaurant_img"),
+    restaurantController.signupProcess
+  );
 
 router_bssr
   .get("/login", restaurantController.getLoginMyRestaurant)
@@ -22,12 +30,33 @@ router_bssr.get("/logout", restaurantController.logout);
 router_bssr.get("/check-me", restaurantController.checkSessions);
 
 // bu uchta Api productlarga tegishlidir.
-router_bssr.get("/products/menu", restaurantController.getMyRestaurantData);
+router_bssr.get(
+  "/products/menu",
+  restaurantController.validateAuthRestaurant,
+  restaurantController.getMyRestauranProducts
+);
 router_bssr.post(
   "/products/create",
   restaurantController.validateAuthRestaurant,
   uploader_product.array("product_images", 5),
   productController.addNewProduct
 );
-router_bssr.post("products/edit/:id", productController.updateChosenProduct);
+router_bssr.post(
+  "/products/edit/:id",
+  restaurantController.validateAuthRestaurant,
+  productController.updateChosenProduct
+);
+
+router_bssr.get(
+  "/all-restaurant",
+  restaurantController.validateAdmin,
+  restaurantController.getAllRestaurants
+);
+
+router_bssr.post(
+  "/all-restaurant/edit",
+  restaurantController.validateAdmin,
+  restaurantController.updateRestaurantByAdmin
+);
+
 module.exports = router_bssr;

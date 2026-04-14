@@ -1,11 +1,15 @@
 const express = require("express");
+const http = require("http");
 const app = express();
 const router = require("./router.js");
 const router_BSSR = require("./router_BSSR.js");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 // For session
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URL,
   collection: "sessions", // ozgartridim 2023/10/22
@@ -13,8 +17,16 @@ const store = new MongoDBStore({
 
 //1Kirish code
 app.use(express.static("public"));
+app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    credentials: true,
+    origin: true,
+  })
+);
+app.use(cookieParser());
 
 //2 Session code
 app.use(
@@ -40,4 +52,36 @@ app.set("view engine", "ejs");
 app.use("/resto", router_BSSR);
 app.use("/", router);
 
-module.exports = app;
+/* SOCKET.IO backend server */
+const server = http.createServer(app);
+const io = require("socket.io")(server, {
+  serveClient: false,
+  origins: "*:*",
+  transport: ["websocket", "xhr-polling"],
+});
+
+let online_users = 0;
+
+io.on("connection", function (socket) {
+  online_users++;
+  console.log("New user,total ::", online_users);
+  socket.emit("greetMsg", { text: "welcome" });
+  io.emit("infoMsg", { total: online_users });
+
+  // ulanga userlardan biron kimdir chiqib ketsa
+  socket.on("disconnect", function () {
+    online_users--;
+    socket.broadcast.emit("infoMsg", { total: online_users });
+    console.log("clientDisconnacted,total::", online_users);
+  });
+
+  socket.on("createMsg", function (data) {
+    console.log(data);
+    io.emit("newMsg", data); // message va kim yuborganligi
+  });
+  // socket.emit(); // ulanga odam un yoziladigon xabar,faqatgina ulangan odamga boradi
+  // socket.broadcast.emit(); // ulanga odamdan tashqari bolgan userlarga xabar yuborish un
+  // io.emit(); // xammaga xabar yuborgnda ishlatilinadi
+});
+
+module.exports = server;
